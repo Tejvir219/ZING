@@ -79,6 +79,11 @@
       color: var(--blue);
     }
 
+    a {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
     main {
       max-width: 1120px;
       width: 100%;
@@ -294,7 +299,8 @@
       </div>
       <nav>
         <a href="#summary">Summary</a>
-        <a href="#push">What To Push</a>
+        <a href="#repository">Repository</a>
+        <a href="#push">What Was Pushed</a>
         <a href="#structure">Final Structure</a>
         <a href="#flow">Full Flow</a>
         <a href="#files">Every File</a>
@@ -320,15 +326,28 @@
         <div class="pill-row">
           <span class="pill green">Streamlit app</span>
           <span class="pill">Video + Audio + JSON + PDF</span>
-          <span class="pill green">Local Ollama LLM</span>
+          <span class="pill green">Ollama-only LLM</span>
           <span class="pill amber">Offline-friendly</span>
           <span class="pill">JSON / HTML / PDF reports</span>
         </div>
       </div>
 
+      <section id="repository">
+        <h2>Repository</h2>
+        <p>
+          The project is published on GitHub here:
+          <a href="https://github.com/Tejvir219/ZING" target="_blank" rel="noopener">Tejvir219/ZING</a>.
+        </p>
+        <div class="callout good">
+          <strong>Current state:</strong>
+          the repository contains the Streamlit app, source modules, tests, sample inputs, generated reports,
+          project documentation, and the Word overview document.
+        </div>
+      </section>
+
       <section id="push">
-        <h2>What To Push To GitHub</h2>
-        <p>Push the useful project files and folders only. These are the files a reviewer needs to run, test, and understand the assignment.</p>
+        <h2>What Was Pushed To GitHub</h2>
+        <p>The useful project files and folders have been pushed. These are the files a reviewer needs to run, test, and understand the assignment.</p>
         <pre><code>README.md
 requirements.txt
 run_app.sh
@@ -343,8 +362,8 @@ test_inputs/
 tests/
 docs/</code></pre>
 
-        <h3>Do Not Push Garbage</h3>
-        <p>These files are not needed and should not be in the final repo.</p>
+        <h3>Ignored Local Files</h3>
+        <p>These files are not needed and should stay out of the final repo.</p>
         <pre><code>.env
 .env.example
 ollama-install.ps1
@@ -358,7 +377,7 @@ outputs/cleanup_report.html</code></pre>
         <div class="callout good">
           <strong>Current state:</strong>
           the project was cleaned so the final structure contains the app code, source modules, tests, sample inputs,
-          generated reports, README, and docs.
+          generated reports, README, docs, and project overview DOCX.
         </div>
       </section>
 
@@ -396,8 +415,8 @@ outputs/cleanup_report.html</code></pre>
             <p>The app loads from <code>streamlit_app.py</code>. The user works in the browser, not the terminal.</p>
           </div>
           <div class="step">
-            <strong>User enables Ollama.</strong>
-            <p>The sidebar has <code>Use Ollama</code> and an Ollama model field. The default model is <code>llama3.2:1b</code>.</p>
+            <strong>The app requires Ollama.</strong>
+            <p>The sidebar has an Ollama model field only. The default model is <code>llama3.2:1b</code>, and report generation fails if Ollama is unavailable.</p>
           </div>
           <div class="step">
             <strong>User enters session details.</strong>
@@ -452,7 +471,7 @@ outputs/cleanup_report.html</code></pre>
         <pre><code>./run_app.sh</code></pre>
 
         <h3><code>streamlit_app.py</code></h3>
-        <p>This is the frontend. It creates the Streamlit page, handles uploads, controls Ollama settings, calls the backend, previews the report, and provides download buttons.</p>
+        <p>This is the frontend. It creates the Streamlit page, handles uploads, applies required Ollama settings, calls the backend, previews the report, and provides download buttons.</p>
 
         <h3><code>main.py</code></h3>
         <p>This is the backend orchestrator. It calls ingestion, video analysis, audio analysis, activity analysis, attendance analysis, homework parsing, report generation, and export.</p>
@@ -462,6 +481,9 @@ outputs/cleanup_report.html</code></pre>
 
         <h3><code>docs/full_project_explanation.html</code></h3>
         <p>This file is the complete explanation document you can depend on for understanding and presenting the project.</p>
+
+        <h3><code>docs/ZING_Project_Overview.docx</code></h3>
+        <p>This is a Word overview document for sharing the project summary, repository link, setup steps, architecture, and Ollama-only runtime notes.</p>
       </section>
 
       <section id="modules">
@@ -554,7 +576,7 @@ outputs/cleanup_report.html</code></pre>
         <h2>Ollama LLM Synthesizer</h2>
         <p>The final version uses local Ollama only. No cloud API keys are needed.</p>
         <pre><code>ollama pull llama3.2:1b</code></pre>
-        <p>The app sets these values internally when Ollama is enabled:</p>
+        <p>The app sets these values internally because Ollama is required:</p>
         <pre><code>LLM_PROVIDER=ollama
 OLLAMA_MODEL=llama3.2:1b
 OLLAMA_URL=http://localhost:11434/api/generate
@@ -627,7 +649,7 @@ LLM_MAX_OUTPUT_TOKENS=300</code></pre>
           <li>PDF export writes a real PDF file.</li>
           <li>Streamlit helper functions save uploads safely.</li>
           <li>Old reports can be cleared.</li>
-          <li>Ollama environment settings are applied correctly.</li>
+          <li>Ollama environment settings are always applied.</li>
         </ul>
         <div class="callout good">
           <strong>Verified:</strong>
@@ -707,8 +729,8 @@ ollama list</code></pre>
       <section>
         <h2>Final Status</h2>
         <div class="callout good">
-          The project is ready to push. It is Streamlit-based, multimodal, local-Ollama powered, tested, and generates
-          JSON, HTML, and PDF outputs.
+          The project has been pushed to GitHub. It is Streamlit-based, multimodal, local-Ollama powered, tested, and generates
+          JSON, HTML, PDF, and DOCX documentation outputs.
         </div>
         <p class="small">Guide file: <code>docs/full_project_explanation.html</code></p>
       </section>

@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete Multi-Modal Session Insights Explanation</title>
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --paper: #ffffff;
+      --ink: #17212b;
+      --muted: #61717f;
+      --line: #dce4ea;
+      --blue: #205fbe;
+      --green: #0f766e;
+      --amber: #a8640d;
+      --red: #a8324a;
+      --code-bg: #111827;
+      --code-text: #e6edf3;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.65;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 24px 18px;
+      background: #fbfcfd;
+      border-right: 1px solid var(--line);
+    }
+
+    .brand {
+      padding: 8px 8px 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav a {
+      display: block;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #334155;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: #eaf2ff;
+      color: var(--blue);
+    }
+
+    main {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 34px 28px 70px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef7f5 52%, #eef4ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 34px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1, h2, h3 { line-height: 1.18; }
+    h1 { margin: 0; max-width: 830px; font-size: 42px; }
+    h2 { margin: 0 0 14px; font-size: 28px; }
+    h3 { margin: 24px 0 10px; font-size: 18px; }
+
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    section {
+      margin-top: 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 26px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    ul, ol {
+      margin: 0 0 14px 20px;
+      padding: 0;
+      color: var(--muted);
+    }
+
+    li { margin: 7px 0; }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #eef2f7;
+      color: #1f2937;
+      font-size: 0.94em;
+    }
+
+    pre {
+      margin: 12px 0 0;
+      padding: 16px;
+      overflow-x: auto;
+      border-radius: 8px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      line-height: 1.45;
+    }
+
+    pre code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .callout {
+      padding: 16px;
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      background: #eff6ff;
+      color: #334155;
+      margin: 14px 0;
+    }
+
+    .callout.good {
+      border-left-color: var(--green);
+      background: #ecfdf5;
+    }
+
+    .callout.warn {
+      border-left-color: var(--amber);
+      background: #fff7ed;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eaf2ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pill.green { background: #e7f7f3; color: var(--green); }
+    .pill.amber { background: #fff4df; color: var(--amber); }
+    .pill.red { background: #fff1f3; color: var(--red); }
+
+    .flow {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      position: relative;
+      padding: 15px 15px 15px 54px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 17px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .layout { display: block; }
+      aside { position: relative; height: auto; }
+      main { padding: 24px 16px 46px; }
+      h1 { font-size: 34px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <strong>Multi-Modal Session Insights</strong>
+        <span>Full explanation guide for submission and interview.</span>
+      </div>
+      <nav>
+        <a href="#summary">Summary</a>
+        <a href="#push">What To Push</a>
+        <a href="#structure">Final Structure</a>
+        <a href="#flow">Full Flow</a>
+        <a href="#files">Every File</a>
+        <a href="#modules">Source Modules</a>
+        <a href="#multimodal">Multimodal Mapping</a>
+        <a href="#ollama">Ollama LLM</a>
+        <a href="#outputs">Outputs</a>
+        <a href="#tests">Testing</a>
+        <a href="#interview">Interview Explanation</a>
+        <a href="#limits">Honest Limits</a>
+        <a href="#commands">Commands</a>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="hero" id="summary">
+        <div class="eyebrow">Complete Handoff</div>
+        <h1>Everything you need to understand and explain this project</h1>
+        <p>
+          This guide explains the current final version of the project: a Streamlit-based multimodal learning-session
+          insights pipeline that uses local Ollama for LLM synthesis and produces JSON, HTML, and PDF reports.
+        </p>
+        <div class="pill-row">
+          <span class="pill green">Streamlit app</span>
+          <span class="pill">Video + Audio + JSON + PDF</span>
+          <span class="pill green">Local Ollama LLM</span>
+          <span class="pill amber">Offline-friendly</span>
+          <span class="pill">JSON / HTML / PDF reports</span>
+        </div>
+      </div>
+
+      <section id="push">
+        <h2>What To Push To GitHub</h2>
+        <p>Push the useful project files and folders only. These are the files a reviewer needs to run, test, and understand the assignment.</p>
+        <pre><code>README.md
+requirements.txt
+run_app.sh
+streamlit_app.py
+main.py
+
+src/
+templates/
+data/
+outputs/
+test_inputs/
+tests/
+docs/</code></pre>
+
+        <h3>Do Not Push Garbage</h3>
+        <p>These files are not needed and should not be in the final repo.</p>
+        <pre><code>.env
+.env.example
+ollama-install.ps1
+__pycache__/
+.vscode/
+*.pyc
+sample_data/
+*.csv
+outputs/cleanup_report.html</code></pre>
+
+        <div class="callout good">
+          <strong>Current state:</strong>
+          the project was cleaned so the final structure contains the app code, source modules, tests, sample inputs,
+          generated reports, README, and docs.
+        </div>
+      </section>
+
+      <section id="structure">
+        <h2>Final Structure</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>README.md</code></td><td>Quick startup guide, model choices, output description, scaling explanation.</td></tr>
+            <tr><td><code>requirements.txt</code></td><td>Python dependencies needed to run the app.</td></tr>
+            <tr><td><code>run_app.sh</code></td><td>Convenience script for starting Streamlit.</td></tr>
+            <tr><td><code>streamlit_app.py</code></td><td>Main Streamlit user interface.</td></tr>
+            <tr><td><code>main.py</code></td><td>Backend pipeline runner.</td></tr>
+            <tr><td><code>src/</code></td><td>Core feature extraction, LLM synthesis, and report generation code.</td></tr>
+            <tr><td><code>templates/</code></td><td>HTML report template.</td></tr>
+            <tr><td><code>data/</code></td><td>Current sample input files used by the pipeline.</td></tr>
+            <tr><td><code>outputs/</code></td><td>Generated JSON, HTML, and PDF reports.</td></tr>
+            <tr><td><code>test_inputs/</code></td><td>Files you can manually upload in the Streamlit app.</td></tr>
+            <tr><td><code>tests/</code></td><td>Automated unit tests.</td></tr>
+            <tr><td><code>docs/</code></td><td>Detailed explanation and handoff documents.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="flow">
+        <h2>Full Flow</h2>
+        <div class="flow">
+          <div class="step">
+            <strong>User opens Streamlit.</strong>
+            <p>The app loads from <code>streamlit_app.py</code>. The user works in the browser, not the terminal.</p>
+          </div>
+          <div class="step">
+            <strong>User enables Ollama.</strong>
+            <p>The sidebar has <code>Use Ollama</code> and an Ollama model field. The default model is <code>llama3.2:1b</code>.</p>
+          </div>
+          <div class="step">
+            <strong>User enters session details.</strong>
+            <p>Student name, session ID, and subject are optional. If blank, the app still runs.</p>
+          </div>
+          <div class="step">
+            <strong>User uploads required JSON.</strong>
+            <p>The app requires activity JSON and attendance JSON for each report.</p>
+          </div>
+          <div class="step">
+            <strong>User uploads optional media and documents.</strong>
+            <p>The app accepts video, audio, and homework PDFs as supporting files.</p>
+          </div>
+          <div class="step">
+            <strong>Streamlit saves files into <code>data/</code>.</strong>
+            <p>Uploaded files are cleaned, saved, and prepared for the backend pipeline.</p>
+          </div>
+          <div class="step">
+            <strong>Streamlit calls <code>main.py</code>.</strong>
+            <p>This starts the backend analysis pipeline.</p>
+          </div>
+          <div class="step">
+            <strong>Feature extraction runs.</strong>
+            <p>Video, audio, activity, attendance, and homework are analyzed separately by modules inside <code>src/</code>.</p>
+          </div>
+          <div class="step">
+            <strong>Ollama synthesizes report text.</strong>
+            <p>The extracted metrics are sent to local Ollama. Ollama creates parent narrative, weekly progress, and tips.</p>
+          </div>
+          <div class="step">
+            <strong>Reports are generated.</strong>
+            <p>The app writes <code>outputs/report.json</code>, <code>outputs/report.html</code>, and <code>outputs/report.pdf</code>.</p>
+          </div>
+          <div class="step">
+            <strong>Streamlit displays the preview.</strong>
+            <p>The user can review the result and download PDF, HTML, or JSON.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="files">
+        <h2>Every Important File</h2>
+        <h3><code>README.md</code></h3>
+        <p>This is the first file reviewers will read. It explains what the project does, how to install dependencies, how to run the app, what inputs are required, what outputs are generated, how Ollama is used, and how the system could scale.</p>
+
+        <h3><code>requirements.txt</code></h3>
+        <p>This lists all Python packages needed for the project. A reviewer installs them with:</p>
+        <pre><code>python3 -m pip install -r requirements.txt</code></pre>
+
+        <h3><code>run_app.sh</code></h3>
+        <p>This is a shortcut for starting the Streamlit app.</p>
+        <pre><code>./run_app.sh</code></pre>
+
+        <h3><code>streamlit_app.py</code></h3>
+        <p>This is the frontend. It creates the Streamlit page, handles uploads, controls Ollama settings, calls the backend, previews the report, and provides download buttons.</p>
+
+        <h3><code>main.py</code></h3>
+        <p>This is the backend orchestrator. It calls ingestion, video analysis, audio analysis, activity analysis, attendance analysis, homework parsing, report generation, and export.</p>
+
+        <h3><code>templates/report_template.html</code></h3>
+        <p>This is the styled HTML report template used by <code>src/export_report.py</code>.</p>
+
+        <h3><code>docs/full_project_explanation.html</code></h3>
+        <p>This file is the complete explanation document you can depend on for understanding and presenting the project.</p>
+      </section>
+
+      <section id="modules">
+        <h2>Source Modules</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>What It Does</th>
+              <th>Assignment Part</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/ingest.py</code></td>
+              <td>Loads activity JSON, attendance JSON, first audio file, first video file, and all homework PDFs from <code>data/</code>.</td>
+              <td>Data ingestion and preprocessing.</td>
+            </tr>
+            <tr>
+              <td><code>src/vision_analysis.py</code></td>
+              <td>Uses OpenCV face detection to estimate focus from video frames.</td>
+              <td>Vision AI for focus tracking.</td>
+            </tr>
+            <tr>
+              <td><code>src/audio_analysis.py</code></td>
+              <td>Analyzes duration, pause count, WPM, transcript when available, and fluency score.</td>
+              <td>Speech AI, transcription, fluency, gaps/pauses.</td>
+            </tr>
+            <tr>
+              <td><code>src/context_engine.py</code></td>
+              <td>Aggregates quiz correctness, concept strengths/weaknesses, canvas completion, attendance rate, missed classes, and streak.</td>
+              <td>Activity, attendance, and context engine.</td>
+            </tr>
+            <tr>
+              <td><code>src/homework_parser.py</code></td>
+              <td>Extracts text from homework PDFs and scores topics, completion, delay, and quality.</td>
+              <td>Homework PDF text extraction and status checking.</td>
+            </tr>
+            <tr>
+              <td><code>src/llm_synthesizer.py</code></td>
+              <td>Sends compact metrics to local Ollama and parses the LLM's JSON response.</td>
+              <td>LLM report synthesis.</td>
+            </tr>
+            <tr>
+              <td><code>src/report_generator.py</code></td>
+              <td>Combines all modality outputs into the final structured report.</td>
+              <td>Synthesized JSON report.</td>
+            </tr>
+            <tr>
+              <td><code>src/export_report.py</code></td>
+              <td>Exports the final report to HTML and PDF.</td>
+              <td>Styled HTML/PDF report.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="multimodal">
+        <h2>Why This Is Multimodal</h2>
+        <p>The project is multimodal because it combines several different kinds of input into one report.</p>
+        <div class="grid">
+          <div class="card">
+            <strong>Video</strong>
+            <p>Analyzed with OpenCV to estimate focus using face visibility and position.</p>
+          </div>
+          <div class="card">
+            <strong>Audio</strong>
+            <p>Analyzed for speech duration, pause patterns, fluency, WPM, and transcript when available.</p>
+          </div>
+          <div class="card">
+            <strong>Activity JSON</strong>
+            <p>Used for quiz correctness, concept mastery, canvas completion, and time taken.</p>
+          </div>
+          <div class="card">
+            <strong>Attendance JSON</strong>
+            <p>Used for attendance rate, missed classes, and current streak.</p>
+          </div>
+          <div class="card">
+            <strong>Homework PDFs</strong>
+            <p>Parsed for text, topics, completion status, delay status, and quality.</p>
+          </div>
+          <div class="card">
+            <strong>Ollama LLM</strong>
+            <p>Uses extracted metrics to synthesize a parent-friendly narrative and tips.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ollama">
+        <h2>Ollama LLM Synthesizer</h2>
+        <p>The final version uses local Ollama only. No cloud API keys are needed.</p>
+        <pre><code>ollama pull llama3.2:1b</code></pre>
+        <p>The app sets these values internally when Ollama is enabled:</p>
+        <pre><code>LLM_PROVIDER=ollama
+OLLAMA_MODEL=llama3.2:1b
+OLLAMA_URL=http://localhost:11434/api/generate
+LLM_MAX_OUTPUT_TOKENS=300</code></pre>
+
+        <h3>What The LLM Receives</h3>
+        <p>The LLM does not receive raw video or raw audio. It receives compact extracted metrics such as focus score, speech summary, attendance summary, homework status, strengths, and weak concepts.</p>
+
+        <h3>What The LLM Produces</h3>
+        <ul>
+          <li>Exactly two parent narrative paragraphs.</li>
+          <li>One weekly progress summary.</li>
+          <li>Exactly three actionable tips.</li>
+        </ul>
+
+        <div class="callout good">
+          <strong>Verified:</strong>
+          the generated report confirms <code>"used_llm": true</code>, <code>"provider": "ollama"</code>, and <code>"model": "llama3.2:1b"</code>.
+        </div>
+      </section>
+
+      <section id="outputs">
+        <h2>Outputs</h2>
+        <div class="grid-3">
+          <div class="card">
+            <strong><code>outputs/report.json</code></strong>
+            <p>Full structured machine-readable report. This proves metrics and LLM metadata.</p>
+          </div>
+          <div class="card">
+            <strong><code>outputs/report.html</code></strong>
+            <p>Styled report that can open in a browser.</p>
+          </div>
+          <div class="card">
+            <strong><code>outputs/report.pdf</code></strong>
+            <p>Parent-ready PDF report generated with ReportLab.</p>
+          </div>
+        </div>
+
+        <h3>Important JSON Fields</h3>
+        <pre><code>{
+  "quantitative_metrics": {
+    "focus_index": 86,
+    "speech_fluency": 80,
+    "concept_mastery": 60.0,
+    "attendance_rate": 85.7,
+    "homework_quality": "Average"
+  },
+  "parent_narrative": ["...", "..."],
+  "weekly_progress": "...",
+  "actionable_tips": ["...", "...", "..."],
+  "llm_synthesis": {
+    "used_llm": true,
+    "provider": "ollama",
+    "model": "llama3.2:1b",
+    "error": ""
+  }
+}</code></pre>
+      </section>
+
+      <section id="tests">
+        <h2>Testing</h2>
+        <p>Run all tests with:</p>
+        <pre><code>python3 -m unittest discover -s tests -v</code></pre>
+        <p>The current test suite checks:</p>
+        <ul>
+          <li>Ingestion loads user files correctly.</li>
+          <li>Missing media returns neutral metrics instead of fake sample values.</li>
+          <li>Report generation works with empty data.</li>
+          <li>HTML export writes a report.</li>
+          <li>PDF export writes a real PDF file.</li>
+          <li>Streamlit helper functions save uploads safely.</li>
+          <li>Old reports can be cleared.</li>
+          <li>Ollama environment settings are applied correctly.</li>
+        </ul>
+        <div class="callout good">
+          <strong>Verified:</strong>
+          the last run passed <code>12 tests</code>.
+        </div>
+      </section>
+
+      <section id="interview">
+        <h2>How To Explain It</h2>
+        <p>Use this as your interview or submission explanation:</p>
+        <div class="callout">
+          This is a multimodal offline session-insights pipeline. It takes video, audio, activity JSON, attendance JSON,
+          and homework PDFs. Each modality is processed separately using open-source tools. Video is analyzed with
+          OpenCV for focus, audio is analyzed for fluency and pauses, homework PDFs are parsed with PyMuPDF, and
+          activity/attendance JSON is aggregated into concept and consistency metrics. Then the extracted metrics are
+          passed to a local Ollama LLM, which synthesizes a parent-friendly narrative, weekly progress, and actionable
+          tips. Finally, the system outputs structured JSON, styled HTML, and a PDF report.
+        </div>
+
+        <h3>Assignment Mapping</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Assignment Requirement</th>
+              <th>Where It Is Implemented</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Video focus tracking</td><td><code>src/vision_analysis.py</code></td></tr>
+            <tr><td>Audio transcription and fluency</td><td><code>src/audio_analysis.py</code></td></tr>
+            <tr><td>Activity JSON analysis</td><td><code>src/context_engine.py</code></td></tr>
+            <tr><td>Attendance streak and consistency</td><td><code>src/context_engine.py</code></td></tr>
+            <tr><td>Homework PDF parsing</td><td><code>src/homework_parser.py</code></td></tr>
+            <tr><td>LLM synthesizer</td><td><code>src/llm_synthesizer.py</code></td></tr>
+            <tr><td>JSON report</td><td><code>outputs/report.json</code></td></tr>
+            <tr><td>HTML report</td><td><code>outputs/report.html</code></td></tr>
+            <tr><td>PDF report</td><td><code>outputs/report.pdf</code></td></tr>
+            <tr><td>README and scaling plan</td><td><code>README.md</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="limits">
+        <h2>Honest Limits</h2>
+        <p>These points are good to mention because they show engineering maturity.</p>
+        <ul>
+          <li>Focus detection is estimated through face visibility and centering, not full gaze tracking.</li>
+          <li>Audio fluency is estimated using duration, pauses, speech rate, and transcript when available.</li>
+          <li>Homework quality is rule-based using text length, topic keywords, completion words, and delay words.</li>
+          <li>The LLM is used for report synthesis, not for raw feature extraction.</li>
+          <li>The current app is a prototype, so production scaling would require job queues, object storage, databases, and worker pools.</li>
+        </ul>
+      </section>
+
+      <section id="commands">
+        <h2>Useful Commands</h2>
+        <h3>Install Dependencies</h3>
+        <pre><code>python3 -m pip install -r requirements.txt</code></pre>
+
+        <h3>Start Ollama Model</h3>
+        <pre><code>ollama pull llama3.2:1b
+ollama list</code></pre>
+
+        <h3>Run App</h3>
+        <pre><code>./run_app.sh</code></pre>
+
+        <h3>Run Backend Directly</h3>
+        <pre><code>LLM_PROVIDER=ollama OLLAMA_MODEL=llama3.2:1b LLM_MAX_OUTPUT_TOKENS=300 python3 main.py</code></pre>
+
+        <h3>Run Tests</h3>
+        <pre><code>python3 -m unittest discover -s tests -v</code></pre>
+
+        <h3>Check Ollama</h3>
+        <pre><code>curl http://127.0.0.1:11434/api/tags</code></pre>
+      </section>
+
+      <section>
+        <h2>Final Status</h2>
+        <div class="callout good">
+          The project is ready to push. It is Streamlit-based, multimodal, local-Ollama powered, tested, and generates
+          JSON, HTML, and PDF outputs.
+        </div>
+        <p class="small">Guide file: <code>docs/full_project_explanation.html</code></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

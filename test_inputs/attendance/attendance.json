@@ -1,0 +1,32 @@
+{
+  "attendance": [
+    {
+      "date": "2026-05-25",
+      "present": true
+    },
+    {
+      "date": "2026-05-27",
+      "present": true
+    },
+    {
+      "date": "2026-05-29",
+      "present": false
+    },
+    {
+      "date": "2026-06-01",
+      "present": true
+    },
+    {
+      "date": "2026-06-03",
+      "present": true
+    },
+    {
+      "date": "2026-06-05",
+      "present": true
+    },
+    {
+      "date": "2026-06-08",
+      "present": true
+    }
+  ]
+}

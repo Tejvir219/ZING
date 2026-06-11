@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.vscode/
+.env
+.env.*
+ollama-install.ps1
+sample_data/
+*.csv
+outputs/cleanup_report.html

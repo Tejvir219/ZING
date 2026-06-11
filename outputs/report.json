@@ -1,0 +1,83 @@
+{
+  "student_name": "tej",
+  "session_id": "2323323323",
+  "quantitative_metrics": {
+    "focus_index": 82,
+    "speech_fluency": 80,
+    "concept_mastery": 60.0,
+    "attendance_rate": 85.7,
+    "homework_quality": "Good"
+  },
+  "parent_narrative": [
+    "The student is mostly focused, but has a few short distractions.",
+    "Consistent attendance."
+  ],
+  "weekly_progress": "Consistent attendance.",
+  "actionable_tips": [
+    "- Encourage the student to practice word problems in their free time. - Help them set up a daily routine that includes dedicated homework and study sessions. - Consider setting up regular check-ins with the teacher to discuss progress and address any concerns.",
+    "Review one key concept together before the next class.",
+    "Spend 10 minutes reviewing today's strongest topic with tej so the learning stays fresh."
+  ],
+  "strength_areas": [
+    "fractions",
+    "multiplication"
+  ],
+  "improvement_areas": [
+    "word problems",
+    "division"
+  ],
+  "llm_synthesis": {
+    "used_llm": true,
+    "provider": "ollama",
+    "model": "llama3.2:1b",
+    "error": ""
+  },
+  "vision": {
+    "average_focus_score": 82,
+    "face_detected_ratio": 1.0,
+    "focused_duration_seconds": 24,
+    "distracted_duration_seconds": 6,
+    "focus_summary": "Mostly focused with a few short distractions."
+  },
+  "audio": {
+    "transcript": "Hello friends! Hello friends! My name is Kushal Minket I am 4 year old I am 7 in the UK My father name is Minket My mother name is Gita My sister name is Panika My hobbies are, play and watch TV My favourite colour is orange My favourite fruit is mango Thank you",
+    "audio_duration_seconds": 29.6,
+    "word_count": 54,
+    "words_per_minute": 137,
+    "pause_count": 43,
+    "fluency_score": 80,
+    "speech_summary": "Clear speech at 137 WPM with 43 noticeable pause(s)."
+  },
+  "activity": {
+    "quiz_score_percentage": 60.0,
+    "strong_concepts": [
+      "fractions",
+      "multiplication"
+    ],
+    "weak_concepts": [
+      "word problems",
+      "division"
+    ],
+    "canvas_completion_percentage": 84,
+    "total_time_taken_seconds": 731
+  },
+  "attendance": {
+    "attendance_rate": 85.71428571428571,
+    "current_streak": 4,
+    "missed_classes": 1,
+    "weekly_consistency_summary": "Consistent attendance."
+  },
+  "homework": {
+    "extracted_topics": [
+      "addition",
+      "division",
+      "fractions",
+      "multiplication",
+      "word problems"
+    ],
+    "completion_status": "Completed",
+    "delay_status": "On Time",
+    "completion_quality": "Good",
+    "total_text_length": 647
+  }
+}

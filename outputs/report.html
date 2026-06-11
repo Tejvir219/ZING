@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>tej – Learning Report | Session 2323323323</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface2:  #1f2937;
+      --border:    #30363d;
+      --primary:   #58a6ff;
+      --primary2:  #1f6feb;
+      --success:   #3fb950;
+      --warning:   #d29922;
+      --danger:    #f85149;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --radius:    14px;
+      --glow:      rgba(88,166,255,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Gradient hero strip ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0d1117 0%, #161b2e 40%, #1a1a2e 70%, #16213e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(31,111,235,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 960px; margin: 0 auto; }
+    .badge-session {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(88,166,255,0.12);
+      border: 1px solid rgba(88,166,255,0.3);
+      color: var(--primary);
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #e6edf3 30%, #58a6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-meta {
+      margin-top: 10px; color: var(--muted);
+      font-size: 0.9rem; display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ─── Main layout ─────────────────────────────────────────────── */
+    .main { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* ─── Section headers ─────────────────────────────────────────── */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      border-left: 3px solid var(--primary); padding-left: 10px;
+      margin-bottom: 18px;
+    }
+
+    /* ─── Metric cards ────────────────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .metric-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--card-accent, var(--primary));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .metric-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
+    .metric-value { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .metric-sub   { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    /* Progress bar */
+    .progress-bar {
+      margin-top: 12px; height: 4px;
+      background: var(--surface2); border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 99px;
+      background: var(--card-accent, var(--primary));
+      transition: width 1s ease;
+    }
+
+    /* ─── Narrative card ──────────────────────────────────────────── */
+    .narrative-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+    }
+    .narrative-card p {
+      line-height: 1.75; color: var(--text);
+      font-size: 0.95rem;
+    }
+    .narrative-card p + p { margin-top: 12px; }
+    .weekly-progress {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.88rem;
+    }
+    .weekly-progress strong { color: var(--primary); }
+
+    /* ─── Two-column grid ─────────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ─── Info panels ─────────────────────────────────────────────── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px;
+    }
+    .panel h3 {
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--text); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel ul { list-style: none; padding: 0; }
+    .panel ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem; color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel ul li:last-child { border-bottom: none; }
+    .panel ul li::before { content: '→'; color: var(--primary); font-size: 0.8rem; }
+
+    /* ─── Badges ──────────────────────────────────────────────────── */
+    .badge-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .badge {
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .badge-green  { background: rgba(63,185,80,0.15); color: var(--success); border: 1px solid rgba(63,185,80,0.3); }
+    .badge-red    { background: rgba(248,81,73,0.15);  color: var(--danger);  border: 1px solid rgba(248,81,73,0.3); }
+    .badge-blue   { background: rgba(88,166,255,0.12); color: var(--primary); border: 1px solid rgba(88,166,255,0.3); }
+
+    /* ─── Tips card ───────────────────────────────────────────────── */
+    .tips-card {
+      background: linear-gradient(135deg, rgba(31,111,235,0.08) 0%, rgba(88,166,255,0.05) 100%);
+      border: 1px solid rgba(88,166,255,0.2);
+      border-radius: var(--radius); padding: 24px 28px;
+    }
+    .tips-card h3 {
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 16px; color: var(--primary);
+    }
+    .tip-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 12px;
+    }
+    .tip-num {
+      flex-shrink: 0; width: 26px; height: 26px;
+      background: var(--primary2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: white;
+    }
+    .tip-text { font-size: 0.9rem; color: var(--text); line-height: 1.5; }
+
+    /* ─── Footer ──────────────────────────────────────────────────── */
+    .footer {
+      margin-top: 60px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 0.78rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero Header -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge-session">📊 Learning Report &nbsp;·&nbsp; 2323323323</div>
+    <h1>tej's Session Insights</h1>
+    <div class="hero-meta">
+      <span>🎓 Student Analytics Dashboard</span>
+      <span>📅 Session: 2323323323</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── Key Metrics ───────────────────────────────────────────── -->
+  <div class="section">
+    <p class="section-title">Key Performance Metrics</p>
+    <div class="metrics-grid">
+
+      
+      <div class="metric-card" style="--card-accent: #3fb950">
+        <div class="metric-label">🎯 Focus Index</div>
+        <div class="metric-value" style="color: #3fb950">82</div>
+        <div class="metric-sub">out of 100</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+      </div>
+
+      
+      <div class="metric-card" style="--card-accent: #3fb950">
+        <div class="metric-label">🗣️ Speech Fluency</div>
+        <div class="metric-value" style="color: #3fb950">80</div>
+        <div class="metric-sub">out of 100</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+      </div>
+
+      
+      <div class="metric-card" style="--card-accent: #d29922">
+        <div class="metric-label">🧠 Concept Mastery</div>
+        <div class="metric-value" style="color: #d29922">60.0%</div>
+        <div class="metric-sub">quiz score</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 60.0%"></div></div>
+      </div>
+
+      
+      <div class="metric-card" style="--card-accent: #3fb950">
+        <div class="metric-label">📅 Attendance Rate</div>
+        <div class="metric-value" style="color: #3fb950">85.7%</div>
+        <div class="metric-sub">last 7 sessions</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 85.7%"></div></div>
+      </div>
+
+      
+      <div class="metric-card" style="--card-accent: #3fb950">
+        <div class="metric-label">📝 Homework Quality</div>
+        <div class="metric-value" style="font-size:1.4rem; padding-top:6px; color: #3fb950">Good</div>
+        <div class="metric-sub">based on submission</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Parent Narrative ──────────────────────────────────────── -->
+  <div class="section">
+    <p class="section-title">Parent Summary</p>
+    <div class="narrative-card">
+      
+        <p>The student is mostly focused, but has a few short distractions.</p>
+      
+        <p>Consistent attendance.</p>
+      
+      <div class="weekly-progress">
+        <strong>📆 Weekly Progress: </strong>Consistent attendance.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Analysis Details ──────────────────────────────────────── -->
+  <div class="section">
+    <p class="section-title">Session Analysis Details</p>
+    <div class="two-col">
+
+      <!-- Vision -->
+      <div class="panel">
+        <h3>👁️ Focus Analysis</h3>
+        <ul>
+          <li>Average Focus Score: <strong style="color:var(--text)">82/100</strong></li>
+          <li>Mostly focused with a few short distractions.</li>
+          <li>Face Detected: 100% of session</li>
+          <li>Focused Duration: 24s</li>
+          <li>Distracted Duration: 6s</li>
+        </ul>
+      </div>
+
+      <!-- Audio -->
+      <div class="panel">
+        <h3>🎤 Speech Analysis</h3>
+        <ul>
+          <li>Fluency Score: <strong style="color:var(--text)">80/100</strong></li>
+          <li>Clear speech at 137 WPM with 43 noticeable pause(s).</li>
+          <li>Words per Minute: 137</li>
+          <li>Total Words: 54</li>
+          <li>Pauses Detected: 43</li>
+        </ul>
+      </div>
+
+      <!-- Activity -->
+      <div class="panel">
+        <h3>📊 Quiz & Activity</h3>
+        <ul>
+          <li>Quiz Score: <strong style="color:var(--text)">60.0%</strong></li>
+          <li>Canvas Completion: 84%</li>
+          <li>
+            Strong Concepts:
+            <div class="badge-list">
+              <span class="badge badge-green">fractions</span><span class="badge badge-green">multiplication</span>
+            </div>
+          </li>
+          <li>
+            Needs Work:
+            <div class="badge-list">
+              <span class="badge badge-red">word problems</span><span class="badge badge-red">division</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Homework -->
+      <div class="panel">
+        <h3>📝 Homework Insights</h3>
+        <ul>
+          <li>Quality: <strong style="color:var(--text)">Good</strong></li>
+          <li>Status: Completed</li>
+          <li>Submitted: On Time</li>
+          <li>
+            Topics Covered:
+            <div class="badge-list">
+              <span class="badge badge-blue">addition</span><span class="badge badge-blue">division</span><span class="badge badge-blue">fractions</span><span class="badge badge-blue">multiplication</span><span class="badge badge-blue">word problems</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Transcript ────────────────────────────────────────────── -->
+  
+  <div class="section">
+    <p class="section-title">Speech Transcript</p>
+    <div class="panel">
+      <p style="font-size: 0.9rem; color: var(--muted); font-style: italic; line-height: 1.7;">
+        "Hello friends! Hello friends! My name is Kushal Minket I am 4 year old I am 7 in the UK My father name is Minket My mother name is Gita My sister name is Panika My hobbies are, play and watch TV My favourite colour is orange My favourite fruit is mango Thank you"
+      </p>
+    </div>
+  </div>
+  
+
+  <!-- ── Actionable Tips ───────────────────────────────────────── -->
+  <div class="section">
+    <p class="section-title">Recommendations for Parents</p>
+    <div class="tips-card">
+      <h3>💡 Actionable Tips</h3>
+      
+      <div class="tip-item">
+        <div class="tip-num">1</div>
+        <div class="tip-text">- Encourage the student to practice word problems in their free time. - Help them set up a daily routine that includes dedicated homework and study sessions. - Consider setting up regular check-ins with the teacher to discuss progress and address any concerns.</div>
+      </div>
+      
+      <div class="tip-item">
+        <div class="tip-num">2</div>
+        <div class="tip-text">Review one key concept together before the next class.</div>
+      </div>
+      
+      <div class="tip-item">
+        <div class="tip-num">3</div>
+        <div class="tip-text">Spend 10 minutes reviewing today's strongest topic with tej so the learning stays fresh.</div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <div class="footer">
+    <p>Generated by Multi-Modal Session Insights Pipeline &nbsp;·&nbsp; Session 2323323323</p>
+  </div>
+
+</div>
+</body>
+</html>
